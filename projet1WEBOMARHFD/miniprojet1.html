@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="minniprojet1.css">
+    <title>
+        Mini Projet1/Générateur de quiz
+    </title>
+
+</head>
+<body>
+    <form id="generatequiz">
+        <div class="form1element">
+            <label for="Number"> Number of questions:</label><br>
+            <input type="number" id="Number" name="Number" min="1" max="50" value="10">
+        </div>
+        <div class="form1element">
+            <label for="Category"> Select a category: </label><br>
+            <select  id="Category" name="Category">
+                <option>Any Category</option>
+                <option value="9">General Knowledge</option>
+                <option value="10">Entertainement: Books</option>
+                <option value="11">Entertainement: Film</option>
+                <option value="12">Entertainement: Music</option>
+                <option value="13">Entertainement: Musicals ans theatres</option>
+                <option value="14">Entertainement: Televesion</option>
+                <option value="15">Entertainement: Video Games</option>
+                <option value="16">Entertainement: Board Games</option>
+                <option value="17">Science and nature</option>
+                <option value="18">Science: Computers</option>
+                <option value="19">Science: Mathematics</option>
+                <option value="20">Mythology</option>
+                <option value="21">Sports</option>
+                <option value="22">Geography</option>
+                <option value="23">History</option>
+                <option value="24">Politics</option>
+                <option value="25">Art</option>
+            </select>
+        </div>
+        <div class="form1element">
+            <label for="Difficulty"> Select a Difficulty: </label><br>
+            <select  id="Difficulty" name="Difficulty">
+                <option>Any Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <div class="form1element">
+            <label for="Type"> Select a Type: </label><br>
+            <select  id="Type" name="Type">
+                <option>Any Type</option>
+                <option value="multiple">Multiple choice</option>
+                <option value="boolean">True or False</option>
+            </select>
+        </div>
+        <div class="form1element">
+            <label for="Timer"> Choose the time of every question:</label><br>
+            <input type="number" id="Timer" name="Timer" min="1" max="10" value="5">
+        </div>
+        <button type="submit">Generate Quiz</button>
+    </form>
+<!-- Score Display: Initially hidden, will show up at the end of the quiz -->
+<div id="scoreDisplay" style="display: none; font-size: 24px; font-weight: bold; margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border-radius: 5px;">
+    Your score: 0 / 0
+</div>
+
+    <div id="affichage_question">
+        <div id="headershow">
+            <div id="titlequiz">
+                Omar's first Quiz generator
+            </div>
+            <div id="timeleft">
+                <div class="text">Time left</div>
+                <div id="timerDisplay"></div>
+            </div>
+        </div>
+        <div id="bodyshown">
+            <h2 id="affquestiontext"></h2>
+            <div id="options"></div>
+        </div>
+        <div id="bottomshown">
+            <div id="usficnish"> Finished? </div>
+            <button type="submit" id="toadd">Next</button>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+<script src="minniprojet1.js"></script>
+</body>
+</html>
