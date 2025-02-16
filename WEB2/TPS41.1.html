@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1 id="green" style="color:green;"></h1>;
+        <h1 id="red" style="color:red;"></h1>;
+        <script>
+            //Exo6
+            let HT1=prompt("enter HT1");
+            let TVA1=prompt("enter the TVA1");
+            if (TVA1<0 || TVA1>100)
+                {
+                    alert("cette valeur n'est pas correcte ");
+                }
+            else
+            {
+                let TTC1=Number(HT1)*(1+(Number(TVA1)/100));
+                if (TTC1<100){
+                    document.getElementById("green").innerText=TTC1;   
+                }
+                else{
+                    document.getElementById("red").innerText=TTC1;
+                }
+            }
+        </script>
+    </body>
+</html>

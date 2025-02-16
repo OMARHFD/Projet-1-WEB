@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1 id="green" style="color:green;"></h1>;
+        <h1 id="red" style="color:red;"></h1>;
+        <script>
+            //Exo1
+            let nom=prompt("what's your name?");
+            document.write(nom);
+            //Exo2
+            let a=prompt("enter a");
+            let b=prompt("enter b");
+            let resultat=Number(a)+Number(b);
+            alert(resultat);
+            //Exo3
+            let budget=100;
+            let achats=401;
+            if (budget<achats)
+                {
+                    alert("impossible d'éffectuer l'achat");
+                }
+            else{
+                alert("possible d'éffectuer l'achat");
+            }
+            //Exo6
+            let HT1=prompt("enter HT1");
+            let TVA1=prompt("enter the TVA1");
+            if (TVA1<0 || TVA1>100)
+                {
+                    alert("cette valeur n'est pas correcte ");
+                }
+            else
+            {
+                let TTC1=Number(HT1)*(1+(Number(TVA1)/100));
+                if (TTC1<100){
+                    document.getElementById("green").innerText=TTC1;   
+                }
+                else{
+                    document.getElementById("red").innerText=TTC1;
+                }
+            }
+            //Exo4 Prix HT = Prix TTC ÷ (1 + Taux de TVA)
+            let HT=prompt("enter HT");
+            let TTC=Number(HT)*(1+(40/100));
+            document.body.innerText=TTC;
+            //Exo5
+            let HT0=prompt("enter HT");
+            let TVA0=prompt("enter the TVA");
+            if (TVA0<0 || TVA0>100)
+                {
+                    alert("cette valeur n'est pas correcte ");
+                }
+            else
+            {
+                let TTC0=Number(HT0)*(1+(Number(TVA0)/100));
+                document.body.innerText=TTC0;
+            }
+
+
+        </script>
+    </body>
+</html>

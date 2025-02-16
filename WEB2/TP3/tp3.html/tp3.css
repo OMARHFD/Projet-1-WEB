@@ -1,0 +1,13 @@
+#form1{
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    align-items: start;
+    justify-content: center;
+}
+
+.formele{
+    margin: 5px;
+    padding: 2px;
+
+}
