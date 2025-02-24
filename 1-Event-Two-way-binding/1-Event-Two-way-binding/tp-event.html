@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Manipulation de vue</title>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="monapp">
+	<button @click="afficheTitre">{{titre}}</button>
+	<div>
+		<p>étant compteur:</p>
+		<button @click="incremente">++</button>
+		<span> {{compteur}} </span>
+		<button @click="decremente">--</button>
+	</div>
+
+	<div id="inputSansEspace">
+		<textarea @input="sansespace" v-model="text"></textarea>
+		<p v-show="HiddenOrShown" style="color: red;">Rappel: Pas d'espace</p>
+	</div>
+</div>
+
+
+<script>
+	const appli = {
+		data () {
+				return {
+					titre:'Cliquez moi',
+					compteur :0,
+					text:" ",
+					HiddenOrShown:false,
+				}
+			},
+			methods:{
+					afficheTitre(){
+						this.titre = 'Cliqué';
+					},
+					decremente(){
+						this.compteur-=1;
+					},
+					incremente(){
+						this.compteur+=1;
+					},
+					sansespace(){
+						if (this.text.includes(" "))
+							{
+								this.HiddenOrShown=true;
+							}
+						else {this.HiddenOrShown=false;}
+					}
+				}
+	};
+	
+Vue.createApp(appli).mount("#monapp");
+</script>
+
+</body>
+</html>
