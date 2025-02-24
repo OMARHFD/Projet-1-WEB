@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskList</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+        .filter-button {
+            margin-right: 1rem;
+        }
+        .taskele{
+            border: 1px solid black;
+            background-color: beige;
+            margin: 2px;
+        }
+        .taskele h3{
+            color: brown;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Task (TODo list) </h1>
+        <div>
+            <button @click="filterTasks('all')"  class="filter-button">All</button>
+            <button @click="filterTasks('todo')"  class="filter-button">To Do</button>
+            <button @click="filterTasks('completed')" class="filter-button">Completed</button>
+        </div>
+        <ul>
+            <li class = "taskele" v-for="task in filteredTasks" :key="task.id" :class="{ completed: task.completed }">
+                <h3>{{ task.title }}</h3>
+                <p>{{ task.description }}</p>
+                <button v-show="!task.completed" @click="markAsCompleted(task.id)">Mark as Completed</button>
+            </li>
+        </ul>
+        <p>Total Tasks: {{ totalTasks }}</p>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    tasks: [
+                        {
+                            id: 1,
+                            title: "Prière",
+                            description: "Faire la prière dans son temps , les 5 prière.",
+                            completed: true
+                        },
+                        {
+                            id: 2,
+                            title: "Aller à Marjane",
+                            description: "Acheter les legumes , oeufs,viande et lait.",
+                            completed: true
+                        },
+                        {
+                            id: 3,
+                            title: "Réviser les modules de bases",
+                            description: "Lire l'architecture des ordinateurs chapitre3.",
+                            completed: false
+                        },
+                        {
+                            id: 4,
+                            title: "Faire du Sport",
+                            description: "La marche au minimum.",
+                            completed: false
+                        },
+                        {
+                            id:5,
+                            titre:"Appel avec les parents",
+                            description:"5 min minimum",
+                            completed:false,
+                        }
+                    ],
+                    filter: 'all'
+                };
+            },
+            computed: {
+                filteredTasks() {
+                    if (this.filter === 'todo') {
+                        return this.tasks.filter(task => !task.completed);
+                    } else if (this.filter === 'completed') {
+                        return this.tasks.filter(task => task.completed);
+                    } else {
+                        return this.tasks;
+                    }
+                },
+                totalTasks() {
+                    return this.tasks.length;
+                }
+            },
+            methods: {
+                filterTasks(filter) {
+                    this.filter = filter;
+                },
+                markAsCompleted(taskId) {
+                    const task = this.tasks.find(task => task.id === taskId);
+                    if (task) {
+                        task.completed = true;
+                    }
+                },
+                fetchTasks() {
+                    fetch('taskList.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            this.tasks = data;
+                        });
+                }
+            },
+            mounted() {
+                this.fetchTasks();
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
