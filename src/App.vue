@@ -10,29 +10,39 @@
       <section class="filtres">
         <h3>Filtres</h3>
         <input v-model="searchTerm" placeholder="Rechercher une pièce...">
+        
         <!-- Filtrer par catégorie -->
         <select v-model="selectedCategory">
+          <option value="">Toutes les catégories</option>
           <option v-for="categorie in categories" :key="categorie" :value="categorie">
             {{ categorie }}
           </option>
         </select>
+
         <!-- Filtrer par disponibilité -->
         <label>
           Disponible uniquement
           <input type="checkbox" v-model="showAvailable" />
         </label>
+
+        <!-- Trier par prix -->
+        <select v-model="sortOrder">
+          <option value="asc">Prix Croissant</option>
+          <option value="desc">Prix Décroissant</option>
+        </select>
       </section>
 
       <!-- Fiches produits -->
       <section class="fiches">
         <PieceAuto 
-          v-for="piece in filteredPieces" 
+          v-for="piece in filteredAndSortedPieces" 
           :key="piece.id" 
           :piece="piece"
           @add-to-cart="addToCart"
         />
       </section>
 
+      <!-- Panier -->
       <section class="panier">
         <h3>Mon Panier</h3>
         <ul>
@@ -58,23 +68,33 @@ export default {
       searchTerm: "",
       selectedCategory: "",
       showAvailable: false,
+      sortOrder: "asc", // Sorting order for price
       panier: [],
     }
   },
   computed: {
-  categories() {
-    return [...new Set(this.pieces.map(piece => piece.categorie))];
+    categories() {
+      return [...new Set(this.pieces.map(piece => piece.categorie))];
+    },
+    filteredPieces() {
+      return this.pieces.filter(piece => {
+        const matchesCategory = this.selectedCategory ? piece.categorie === this.selectedCategory : true;
+        const matchesSearch = piece.nom.toLowerCase().includes(this.searchTerm.toLowerCase());
+        const matchesAvailability = this.showAvailable ? piece.Disponible === true : true;
+        return matchesCategory && matchesSearch && matchesAvailability;
+      });
+    },
+    filteredAndSortedPieces() {
+      const filtered = this.filteredPieces;
+      return filtered.sort((a, b) => {
+        if (this.sortOrder === "asc") {
+          return a.prix - b.prix;
+        } else {
+          return b.prix - a.prix;
+        }
+      });
+    }
   },
-  filteredPieces() {
-    return this.pieces.filter(piece => {
-      const matchesCategory = this.selectedCategory ? piece.categorie === this.selectedCategory : true;
-      const matchesSearch = piece.nom.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const matchesAvailability = this.showAvailable ? piece.Disponible === true : true; // Use "Disponible" here
-      return matchesCategory && matchesSearch && matchesAvailability;
-    });
-  }
-},
-
   methods: {
     addToCart(piece) {
       this.panier.push(piece);
